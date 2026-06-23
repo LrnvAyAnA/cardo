@@ -1,13 +1,21 @@
-import React from 'react'
+import React from "react";
 
-function Modal() {
-  return (
-    <div>
-        {/* <input onChange={(e) => setFront(e.target.value)} placeholder="Front" />
-          <input onChange={(e) => setBack(e.target.value)} placeholder="Back" />
-          <button onClick={addCard}>Add card</button> */}
-    </div>
-  )
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
 }
 
-export default Modal
+function Modal({ isOpen, onClose, children }: ModalProps) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+      <div className="bg-white p-6 rounded-xl">
+        {children}
+        <button onClick={onClose}>×</button>
+      </div>
+    </div>
+  );
+}
+
+export default Modal;
