@@ -3,10 +3,11 @@ import "./App.css";
 import Study from "./components/Study";
 import Decks from "./components/Decks";
 import { useDecks } from "./hooks/useDecks";
+import type { IDeck } from "./types";
 
 function App() {
   const [curTab, setTab] = useState("study");
-
+  const [activeDeck,setActiveDeck] = useState<IDeck | null>(null);
   const { decks, setDecks } = useDecks();
 
   const activeTab =
@@ -27,10 +28,10 @@ function App() {
           Decks
         </button>
       </div>
-      {curTab == "study" ? (
-        <Study />
+      {curTab == "study" ? ( activeDeck != null ? 
+        (<Study activeDeck={activeDeck}/>):(<div>Select a deck</div>)
       ) : (
-        <Decks data={decks} setDecks={setDecks} />
+        <Decks data={decks} setDecks={setDecks} onSelectDeck={(deck) => { setActiveDeck(deck); setTab("study"); }}/>
       )}
     </div>
   );

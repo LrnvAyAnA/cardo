@@ -5,8 +5,9 @@ import { CardItem } from "./CardItem";
 interface DecksProp {
   data: IDeck[];
   setDecks: React.Dispatch<React.SetStateAction<IDeck[]>>;
+  onSelectDeck: (deck: IDeck) => void;
 }
-function Decks({ data, setDecks }: DecksProp) {
+function Decks({ data, setDecks, onSelectDeck }: DecksProp) {
   const [title, setTitle] = useState("");
   const [selectedDeck, setSelectedDeck] = useState<IDeck | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -135,8 +136,9 @@ function Decks({ data, setDecks }: DecksProp) {
       ) : (
         //отображение колод
         data.map((deck) => (
-          <div onClick={() => setSelectedDeck(deck)} key={deck.deckId}>
+          <div onClick={() => onSelectDeck(deck)} key={deck.deckId}>
             {deck.deckTitle}
+            <button onClick={(e)=>{e.stopPropagation(); setSelectedDeck(deck)}}>*</button>
           </div>
         ))
       )}

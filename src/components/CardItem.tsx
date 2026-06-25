@@ -10,7 +10,7 @@ export const CardItem = ({ card, onEdit, onDelete }: Props) => {
   return (
     <div onClick={onEdit}>
       {card.front}
-      <button onClick={onDelete}>-</button>
+      <button onClick={(e) => { e.stopPropagation(); onDelete(); }}>-</button>
     </div>
   );
 };
