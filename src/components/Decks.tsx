@@ -124,6 +124,8 @@ function Decks({ data, setDecks, onSelectDeck }: DecksProp) {
               card={card}
               onEdit={() => {
                 setIsModalOpen(true);
+                setFront(card.front);
+                setBack(card.back);
                 setEditingCard(card);
               }}
               onDelete={() => {
