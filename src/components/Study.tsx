@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { IDeck } from "../types";
 interface StudyProps {
   activeDeck: IDeck;
