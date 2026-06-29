@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { ICard, IDeck } from "../types";
 import Modal from "./Modal";
 import { CardItem } from "./CardItem";
@@ -87,6 +87,14 @@ function Decks({ data, setDecks, onSelectDeck }: DecksProp) {
       setSelectedDeck(updatedDeck);
     }
   }
+
+useEffect(() => { 
+  const handleClick = () => { setMenuOpen(null); }; 
+  document.addEventListener("click", handleClick); 
+  return () => { 
+    document.removeEventListener("click", handleClick); 
+  }; 
+}, []);
 
   return (
     <div className="flex flex-col">
@@ -193,7 +201,7 @@ function Decks({ data, setDecks, onSelectDeck }: DecksProp) {
           </div>
 
           <button
-            className="absolute top-15 left-15 w-14 h-12 bg-linear-30 from-[#9077FF]/30 rounded-[10px] flex items-center justify-center to-[#DAD2FC]/30 cursor-pointer"
+            className="absolute top-15 left-30 w-14 h-12 bg-linear-30 from-[#9077FF]/30 rounded-[10px] flex items-center justify-center to-[#DAD2FC]/30 cursor-pointer"
             onClick={() => setSelectedDeck(null)}
           >
             <Back className="w-8 h-8" />
@@ -212,7 +220,6 @@ function Decks({ data, setDecks, onSelectDeck }: DecksProp) {
                 onClick={(e) => {
                   e.stopPropagation();
                   setMenuOpen(menuOpen === deck.deckId ? null : deck.deckId);
-                  // setSelectedDeck(deck);
                 }}
                 className="absolute top-2 right-2 bg-[#856EB1] rounded-[5px] h-5 w-5 flex justify-center items-center cursor-pointer hover:bg-[#674c99]"
               >
